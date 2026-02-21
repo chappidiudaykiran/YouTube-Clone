@@ -1,9 +1,12 @@
-
+import Head from './components/Head';
+import Body from './components/Body';
+import './index.css';
 
 function App() {
   return (
     <div>
-      <h1>YouTube Clone</h1>
+      <Head />
+      <Body />
     </div>
   );
 }
