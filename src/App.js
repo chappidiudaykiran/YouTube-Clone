@@ -1,13 +1,19 @@
-import Head from './components/Head';
-import Body from './components/Body';
-import './index.css';
-
+import React from "react";
+import Head from "./components/Head";
+import Body from "./components/Body";
+import "./index.css";
+import { Provider } from "react-redux";
+import store from "./utils/store";
 function App() {
   return (
-    <div>
-      <Head />
-      <Body />
-    </div>
+    <React.StrictMode>
+      <Provider store={store}>
+        <div>
+          <Head />
+          <Body />
+        </div>
+      </Provider>
+    </React.StrictMode>
   );
 }
 

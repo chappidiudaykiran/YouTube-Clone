@@ -1,13 +1,20 @@
-
+import { toggleMenu } from '../utils/appSlice';
 import SearchLogo from '../Assets/SearchLogo.jpg'
-
+import { useDispatch } from 'react-redux';
 
 const Head = () => {
+    const dispatch = useDispatch();
+    const toggleMenuHandler = () => {
+        dispatch(toggleMenu());
+
+    }
   return (
   <div className='flex items-center justify-between px-4 py-3 shadow-sm sticky top-0 bg-white z-10'>
-    <div className='flex items-center gap-4 w-1/4 ml-3'>
+    <div onClick={() => toggleMenuHandler()} className='flex items-center gap-4 w-1/4 ml-3 cursor-pointer'>
       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1280px-Hamburger_icon.svg.png" alt="hamburger" className='w-6 h-6 cursor-pointer'/>
+      <a href='/' className='hidden md:block'>
       <img src="https://upload.wikimedia.org/wikipedia/commons/3/34/YouTube_logo_%282017%29.png" alt="youtube logo" className='w-28 h-6 object-contain cursor-pointer'/>
+       </a>
         </div>
     <div className="flex justify-center w-2/4">
       <div className='flex w-full max-w-2xl'>
