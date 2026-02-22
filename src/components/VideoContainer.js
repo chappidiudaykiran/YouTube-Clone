@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
-
+import { useState } from 'react';
+import VideoCard from './VideoCard';
 const VideoContainer = () => {
+  const[videos,setVideos] = useState([]);
   useEffect(() => {
     getVideos();
   }, []);
@@ -12,10 +14,16 @@ const VideoContainer = () => {
     }
     const data = await fetch(apiUrl);
     const json = await data.json();
-    console.log(json);
+    setVideos(json.items);
   }
   return (
-    <div>VideoContainer</div>
+    <div className='flex flex-wrap gap-4 p-4'>
+      {videos.map((video) => (
+        <a key={video.id} href={`/watch?v=${video.id}`}>
+          <VideoCard info={video} />
+        </a>
+      ))}
+    </div>
   )
 }
 
