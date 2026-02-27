@@ -1,7 +1,7 @@
 import { toggleMenu } from "../utils/appSlice";
 import SearchLogo from "../Assets/SearchLogo.jpg";
 import { useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Youtube_Search_Api } from "../utils/constants";
 import { useSelector } from "react-redux";
 import { cacheResults } from "../utils/searchSlice";
@@ -11,30 +11,29 @@ const Head = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [isFocused, setIsFocused] = useState(false);
   const dispatch = useDispatch();
- const searchCache = useSelector((store) => store.search);
-  useEffect(() => {
-    const timer = setTimeout(() =>
-    {
-        if(searchCache[searchQuery]){
-            setSuggestions(searchCache[searchQuery]);
-        }
-        else{
-            getseatchsuggestions();
-        }
-    }, 200);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [searchQuery]);
+  const searchCache = useSelector((store) => store.search);
 
-  const getseatchsuggestions = async () => {
+  const getseatchsuggestions = useCallback(async () => {
     const data = await fetch(Youtube_Search_Api + searchQuery);
     const json = await data.json();
     setSuggestions(json[1]);
     dispatch(cacheResults({
-        [searchQuery]: json[1]
+      [searchQuery]: json[1]
     }));
-  };
+  }, [dispatch, searchQuery]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (searchCache[searchQuery]) {
+        setSuggestions(searchCache[searchQuery]);
+      } else {
+        getseatchsuggestions();
+      }
+    }, 200);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [getseatchsuggestions, searchCache, searchQuery]);
 
   const toggleMenuHandler = () => {
     dispatch(toggleMenu());

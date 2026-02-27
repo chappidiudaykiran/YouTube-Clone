@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit"; 
-import { cache } from "react";
 
 const searchSlice = createSlice({
     name:"search",
