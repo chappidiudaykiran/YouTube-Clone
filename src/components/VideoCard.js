@@ -18,7 +18,7 @@ const VideoCard = ({ info }) => {
           {channelTitle}
         </li>
         <li className="text-[12px] text-[#606060] leading-snug">
-          {statistics?.viewCount} Views
+          {statistics?.viewCount} ViewS
         </li>
       </ul>
     </div>
